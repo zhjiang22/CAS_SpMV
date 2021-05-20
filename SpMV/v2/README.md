@@ -1,0 +1,35 @@
+# 测试用例说明
+加载环境rocm-3.9.1
+module switch compiler/rocm/2.9 compiler/rocm/3.9.1
+## 编译方式    
+分为主机端编译和异构端编译
+### 异构端编译  
+异构端验证采用rocsparse库和自定义函数进行结果比对，编译方式如下  
+hipcc -Dgpu -I/public/software/compiler/rocm/rocm-3.9.1/rocsparse/include -I ./  -L/public/software/compiler/rocm/rocm-3.9.1/rocsparse/lib/ -lrocsparse main.cpp -o Csrsparse  
+
+### 主机端编译 
+主机端验证调用下面的函数
+```c++
+spmv(alpha,beta,value,rowptr,colindex,m,n,a,hX,hhY);
+```  
+与参赛者实现的接口函数进行结果比对   
+如果采用CPU端验证使用下面编译方式即可,通常情况下采用cpu端验证即可  
+hipcc main.cpp -I ./ -o Csrsparse   
+
+### 运行方式     
+```shell
+./Csrsparse ../data/af23560.csr
+./Csrsparse ../data/bayer10.csr
+./Csrsparse ../data/bcsstk18.csr
+./Csrsparse ../data/coater2.csr
+./Csrsparse ../data/dw4096.csr
+./Csrsparse ../data/epb1.csr
+./Csrsparse ../data/exdata_1.csr
+./Csrsparse ../data/nemeth03.csr
+./Csrsparse ../data/poli_large.csr
+./Csrsparse ../data/rajat03.csr
+```
+
+
+
+

@@ -1,0 +1,17 @@
+#! /bin/bash
+#SBATCH -J baseline
+#SBATCH -p PilotCup
+#SBATCH -N 1
+#SBATCH --gres=dcu:4
+module switch compiler/rocm/2.9 compiler/rocm/3.9.1
+hipcc -Dgpu -I/public/software/compiler/rocm/rocm-3.9.1/rocsparse/include -I ./  -L/public/software/compiler/rocm/rocm-3.9.1/rocsparse/lib/ -lrocsparse -O3 main.cpp -o Csrsparse
+./Csrsparse ../data/af23560.csr
+./Csrsparse ../data/bayer10.csr
+./Csrsparse ../data/bcsstk18.csr
+./Csrsparse ../data/coater2.csr
+./Csrsparse ../data/dw4096.csr
+./Csrsparse ../data/epb1.csr
+./Csrsparse ../data/exdata_1.csr
+./Csrsparse ../data/nemeth03.csr
+./Csrsparse ../data/poli_large.csr
+./Csrsparse ../data/rajat03.csr
