@@ -98,7 +98,7 @@ enum sparse_operation {operation_none=0,operation_transpose=1};
 
 本次比赛采用suitsparse稀疏矩阵测试集合，所选稀疏矩阵来自于不同应用领域，具体描述如下。
 
-![SpMV-%E8%B5%9B%E9%A2%98%E6%8F%8F%E8%BF%B0%20d9c16db21c50402b827a676b8e481730/Untitled.png](SpMV-%E8%B5%9B%E9%A2%98%E6%8F%8F%E8%BF%B0%20d9c16db21c50402b827a676b8e481730/Untitled.png)
+<img width="1254" alt="image" src="https://user-images.githubusercontent.com/46041980/119002948-e661e700-b9bf-11eb-8676-901bdd3a4707.png">
 
 数据集位于`demo.zip`同级目录下，以`data.zip`命名，编译方式与运行方式详见demo中的`README.md`文件，提交程序时不必提交`data.zip`。
 
