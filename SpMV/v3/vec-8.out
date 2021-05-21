@@ -1,0 +1,70 @@
+----------------af23560----------------
+---------------------------------------
+rocsparse elapsed time:128266(us)
+Congratulation,pass 23560 validation!
+
+../data/af23560.csr elapsed time:158(us)
+---------------------------------------
+----------------bayer10----------------
+---------------------------------------
+rocsparse elapsed time:29135(us)
+Congratulation,pass 13436 validation!
+
+../data/bayer10.csr elapsed time:138(us)
+---------------------------------------
+----------------bcsstk18----------------
+---------------------------------------
+rocsparse elapsed time:28633(us)
+Congratulation,pass 11948 validation!
+
+../data/bcsstk18.csr elapsed time:139(us)
+---------------------------------------
+----------------coater2----------------
+---------------------------------------
+rocsparse elapsed time:27875(us)
+Congratulation,pass 9540 validation!
+
+../data/coater2.csr elapsed time:190(us)
+---------------------------------------
+----------------dw4096----------------
+---------------------------------------
+rocsparse elapsed time:28967(us)
+Congratulation,pass 8192 validation!
+
+../data/dw4096.csr elapsed time:127(us)
+---------------------------------------
+----------------epb1----------------
+---------------------------------------
+rocsparse elapsed time:28555(us)
+Congratulation,pass 14734 validation!
+
+../data/epb1.csr elapsed time:124(us)
+---------------------------------------
+----------------exdata_1----------------
+---------------------------------------
+rocsparse elapsed time:27531(us)
+Congratulation,pass 6001 validation!
+
+../data/exdata_1.csr elapsed time:373(us)
+---------------------------------------
+----------------nemeth03----------------
+---------------------------------------
+rocsparse elapsed time:27927(us)
+Congratulation,pass 9506 validation!
+
+../data/nemeth03.csr elapsed time:170(us)
+---------------------------------------
+----------------poli_large----------------
+---------------------------------------
+rocsparse elapsed time:28436(us)
+Congratulation,pass 15575 validation!
+
+../data/poli_large.csr elapsed time:169(us)
+---------------------------------------
+----------------rajat03----------------
+---------------------------------------
+rocsparse elapsed time:28530(us)
+Congratulation,pass 7602 validation!
+
+../data/rajat03.csr elapsed time:123(us)
+---------------------------------------
