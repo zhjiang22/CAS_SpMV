@@ -44,7 +44,6 @@ void init_csr_dense_vector(char *buf,vector<T> &vec)
     p = strtok(buf, " ");
     while (p != NULL)
     {   
-       // printf("%s\n", p);
         bool isInt = std::is_same<T, int>::value;
         if (isInt==true)
             vec.push_back(atoi(p));
@@ -66,14 +65,11 @@ cout<<endl<<endl;
 
 void read_file(char *path)
 {
-
     FILE *in= fopen(path, "r");
-    char buf[1024*1024*1024*5]; //5g buff
+    char buf[128*1024*1024*100]; //100mbuff
     int line_num=0;
     while (fgets(buf, sizeof(buf), in) != NULL)
     {
-       // printf("%s\n\n", buf);
-        
         if (line_num==1)
         init_csr_dense_vector<double>(buf,csr_data);
         if (line_num==2)

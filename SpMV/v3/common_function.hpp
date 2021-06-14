@@ -68,7 +68,7 @@ void read_file(char *path)
 {
 
     FILE *in= fopen(path, "r");
-    char buf[1024*1024*100]; //100mbuff
+    char buf[1024*1024*1024*5]; //5g buff
     int line_num=0;
     while (fgets(buf, sizeof(buf), in) != NULL)
     {
