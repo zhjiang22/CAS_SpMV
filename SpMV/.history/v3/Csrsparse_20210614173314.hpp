@@ -85,8 +85,7 @@ double* hy)
 	hipMemcpy((void *)cudaRowCounter, (void *)&temp, sizeof(int), hipMemcpyHostToDevice);
 	int NonZ;
 	hipMemcpy((void *)&NonZ, (void *)(hrowptr + hm), sizeof(int), hipMemcpyDeviceToHost);
-	hipDeviceSynchronize();
-	double mean_elements = (double)(NonZ) / hm;
+	double mean_elements = (double)(hrowptr[hm]) / hm;
 	if (mean_elements <= 2) temp = 2;
 	else if (mean_elements <= 4) temp = 4;
 	else if (mean_elements <= 64) temp = 8;

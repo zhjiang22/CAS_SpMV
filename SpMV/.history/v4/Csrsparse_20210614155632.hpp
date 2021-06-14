@@ -65,7 +65,6 @@ __global__ void device_sparse_spmv(int trans,
        		row = atomicAdd(cudaRowCounter, warpSize / THREADS_PER_VECTOR);
     // Broadcast the row index to the other threads in the same warp and compute the row index of each vector
        	row = __shfl(row, 0) + warpVectorId;
-	} 
 }
 
 void  sparse_spmv(int htrans,
@@ -77,16 +76,13 @@ void  sparse_spmv(int htrans,
 	      		  const int* hcolindex,
 	       		  const double* hvalue,
                	  const double* hx,
-double* hy)
+                  double* hy)
 {
 	int *cudaRowCounter;
 	int temp = 0;
 	hipMalloc((void **)&cudaRowCounter, sizeof(int));
 	hipMemcpy((void *)cudaRowCounter, (void *)&temp, sizeof(int), hipMemcpyHostToDevice);
-	int NonZ;
-	hipMemcpy((void *)&NonZ, (void *)(hrowptr + hm), sizeof(int), hipMemcpyDeviceToHost);
-	hipDeviceSynchronize();
-	double mean_elements = (double)(NonZ) / hm;
+	double mean_elements = (double)(hrowptr[hm]) / hm;
 	if (mean_elements <= 2) temp = 2;
 	else if (mean_elements <= 4) temp = 4;
 	else if (mean_elements <= 64) temp = 8;
