@@ -37,8 +37,9 @@ __global__ void device_sparse_spmv(int trans,
 	    if (laneId < 2) space[vectorId][laneId] = rowptr[row + laneId];
 		int rowStart = space[vectorId][0];	int rowEnd = space[vectorId][1];
 		double sum = 0.0;
-		 for (int i = rowStart + laneId; i < rowEnd; i += THREADS_PER_VECTOR)
+		 for (int i = rowStart + laneId; i < rowEnd; i += THREADS_PER_VECTOR) {
     			sum += value[i] * x[colindex[i]];
+			}
     // Intra-vector reduction
         sum += __shfl_down(sum, 2, THREADS_PER_VECTOR);
         sum += __shfl_down(sum, 1, THREADS_PER_VECTOR);
@@ -69,7 +70,7 @@ double* hy)
 	
 	temp = 2; // the power of 2
 	int vectorLen = (1 << temp);
-	int block_dim = 256;
+	int block_dim = 512;
 	int grid_dim = (hm + block_dim - 1) / (block_dim);
     device_sparse_spmv<<<grid_dim, block_dim, block_dim / vectorLen * sizeof(double)>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy, temp, cudaRowCounter);
 }

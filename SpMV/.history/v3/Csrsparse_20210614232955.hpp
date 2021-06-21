@@ -69,7 +69,7 @@ double* hy)
 	
 	temp = 2; // the power of 2
 	int vectorLen = (1 << temp);
-	int block_dim = 256;
+	int block_dim = 512;
 	int grid_dim = (hm + block_dim - 1) / (block_dim);
     device_sparse_spmv<<<grid_dim, block_dim, block_dim / vectorLen * sizeof(double)>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy, temp, cudaRowCounter);
 }

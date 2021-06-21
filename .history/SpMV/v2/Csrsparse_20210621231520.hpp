@@ -28,13 +28,17 @@ __global__ void device_sparse_spmv(int trans,
       	double sum = 0.0;
       	for (int i = rowStart + lane; i < rowEnd; i += warpSize)
          	sum += value[i] * x[colindex[i]];
-		sum *= alpha;
+		result[tid] = alpha * sum;
     } 
+	__syncthreads();
 
-	for (int step = (warpSize / 2); step > 0; step >>= 1)
-		sum += __shfl_down_sync(0xFFFFFFFF, sum, i);
+	volatile double *res = result;
+	for (int step = (warpSize / 2); step > 0; step >>= 1) {
+		if (lane < step) res[tid] += res[tid + step];
+		//__syncthreads();
+	}
 	if (row < m && lane == 0)
-		y[row] = sum + beta * y[row];
+		y[row] = res[tid] + beta * y[row];
 }
 
 
