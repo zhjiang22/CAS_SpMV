@@ -29,11 +29,12 @@ __global__ void device_sparse_spmv(int trans,
       	for (int i = rowStart + lane; i < rowEnd; i += warpSize)
          	sum += value[i] * x[colindex[i]];
 		sum *= alpha;
-		for (int step = (warpSize / 2); step > 0; step >>= 1)
-			sum += __shfl_down(sum, step);
-		if (lane == 0)
-			y[row] = sum + beta * y[row];
     } 
+
+	for (int step = (warpSize / 2); step > 0; step >>= 1)
+		sum += __shfl_down(sum, step);
+	if (row < m && lane == 0)
+		y[row] = sum + beta * y[row];
 }
 
 
@@ -51,5 +52,5 @@ void  sparse_spmv(int htrans,
 {
 	int block_dim = 1024;
 	int grid_dim = (hm + (block_dim / 64) - 1) / (block_dim / 64);
-    device_sparse_spmv<<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy);
+    device_sparse_spmv<<<grid_dim, block_dim, block_dim * sizeof(double)>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy);
 }

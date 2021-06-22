@@ -29,11 +29,12 @@ __global__ void device_sparse_spmv(int trans,
       	for (int i = rowStart + lane; i < rowEnd; i += warpSize)
          	sum += value[i] * x[colindex[i]];
 		sum *= alpha;
-		for (int step = (warpSize / 2); step > 0; step >>= 1)
-			sum += __shfl_down(sum, step);
-		if (lane == 0)
-			y[row] = sum + beta * y[row];
     } 
+
+	//for (int step = (warpSize / 2); step > 0; step >>= 1)
+	//	sum += __shfl_down(sum, step);
+	if (row < m && lane == 0)
+		y[row] = sum + beta * y[row];
 }
 
 

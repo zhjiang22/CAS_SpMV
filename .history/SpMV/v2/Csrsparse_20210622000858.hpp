@@ -34,6 +34,9 @@ __global__ void device_sparse_spmv(int trans,
 		if (lane == 0)
 			y[row] = sum + beta * y[row];
     } 
+
+
+
 }
 
 
