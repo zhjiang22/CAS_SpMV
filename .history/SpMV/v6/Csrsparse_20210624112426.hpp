@@ -24,7 +24,7 @@ __global__ void spmv_pcsr_kernel2(double * d_v, const int * d_ptr,int N, double 
 {
     	int gid = blockIdx.x * blockDim.x + threadIdx.x;
     	int tid = threadIdx.x;
-
+    
     	__shared__ volatile int ptr_s[threadsPerBlock + 1];
     	__shared__ volatile double v_s[sizeSharedMemory];
  
