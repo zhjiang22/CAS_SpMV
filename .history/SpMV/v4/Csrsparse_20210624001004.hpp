@@ -1,4 +1,4 @@
-#include <iostream>
+#include<iostream>
 #include <hip/hip_runtime_api.h> // hipMalloc, hipMemcpy, etc.
 #include <stdio.h>            // printf
 #include <stdlib.h>           // EXIT_FAILURE
@@ -80,22 +80,27 @@ double* hy)
 	if (mean_elements <= 2) {
 		const int temp = 2;
 		const int vecs = block_dim / temp;
-    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy, cudaRowCounter);
+		int grid_dim = (hm + (vecs) - 1) / ((vecs));
+    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy);
 	} else if (mean_elements <= 4) {
 		const int temp = 4;
 		const int vecs = block_dim / temp;
-    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy, cudaRowCounter);
+		int grid_dim = (hm + (vecs) - 1) / ((vecs));
+    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy);
 	} else if (mean_elements <= 64) {
 		const int temp = 8;
 		const int vecs = block_dim / temp;
-    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy, cudaRowCounter);
-	} else if (mean_elements <= 256) {
+		int grid_dim = (hm + (vecs) - 1) / ((vecs));
+    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy);
+	} else if (mean_elements < 256) {
 		const int temp = 16;
 		const int vecs = block_dim / temp;
-    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy, cudaRowCounter);
+		int grid_dim = (hm + (vecs) - 1) / ((vecs));
+    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy);
 	} else {
 		const int temp = 32;
 		const int vecs = block_dim / temp;
-    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy, cudaRowCounter);
+		int grid_dim = (hm + (vecs) - 1) / ((vecs));
+    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy);		
 	}
 }

@@ -1,4 +1,4 @@
-#include <iostream>
+#include<iostream>
 #include <hip/hip_runtime_api.h> // hipMalloc, hipMemcpy, etc.
 #include <stdio.h>            // printf
 #include <stdlib.h>           // EXIT_FAILURE
@@ -94,8 +94,6 @@ double* hy)
 		const int vecs = block_dim / temp;
     	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy, cudaRowCounter);
 	} else {
-		const int temp = 32;
-		const int vecs = block_dim / temp;
-    	device_sparse_spmv<vecs, temp><<<grid_dim, block_dim>>>(htrans,halpha,hbeta,hm,hn,hrowptr,hcolindex,hvalue,hx,hy, cudaRowCounter);
+		
 	}
 }

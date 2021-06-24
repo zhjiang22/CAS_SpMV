@@ -1,4 +1,4 @@
-#include <iostream>
+#include<iostream>
 #include <hip/hip_runtime_api.h> // hipMalloc, hipMemcpy, etc.
 #include <stdio.h>            // printf
 #include <stdlib.h>           // EXIT_FAILURE
